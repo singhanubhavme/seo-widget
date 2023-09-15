@@ -6,7 +6,6 @@ import Image from 'next/image';
 import CircularProgressBar from '@/components/CircularProgressBar';
 import SimpleCard from '@/components/SimpleCard';
 import Card from '@/components/Card';
-
 export default function Home({ params }: { params: { site: string } }) {
   const convertToHttpOrHttps = (url) => {
     return url.startsWith('http://') || url.startsWith('https://')
@@ -33,7 +32,7 @@ export default function Home({ params }: { params: { site: string } }) {
       url: 'https://api.dataforseo.com/v3/on_page/task_post',
       data: post_array,
       headers: {
-        Authorization: process.env.AUTH,
+        Authorization: process.env.NEXT_PUBLIC_AUTH,
       },
     });
 
@@ -47,7 +46,7 @@ export default function Home({ params }: { params: { site: string } }) {
       `https://api.dataforseo.com/v3/on_page/summary/${id}`,
       {
         headers: {
-          Authorization: process.env.AUTH,
+          Authorization: process.env.NEXT_PUBLIC_AUTH,
         },
       }
     );
@@ -65,7 +64,7 @@ export default function Home({ params }: { params: { site: string } }) {
       post_array,
       {
         headers: {
-          Authorization: process.env.AUTH,
+          Authorization: process.env.NEXT_PUBLIC_AUTH,
         },
       }
     );
@@ -84,7 +83,7 @@ export default function Home({ params }: { params: { site: string } }) {
       post_array,
       {
         headers: {
-          Authorization: process.env.AUTH,
+          Authorization: process.env.NEXT_PUBLIC_AUTH,
         },
       }
     );
@@ -102,7 +101,7 @@ export default function Home({ params }: { params: { site: string } }) {
       post_array,
       {
         headers: {
-          Authorization: process.env.AUTH,
+          Authorization: process.env.NEXT_PUBLIC_AUTH,
         },
       }
     );
@@ -120,7 +119,7 @@ export default function Home({ params }: { params: { site: string } }) {
 
   useEffect(() => {
     if (URL) {
-      // getId();
+      getId();
       console.log(URL);
       setLoading(false);
     }
