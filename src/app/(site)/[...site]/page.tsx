@@ -233,7 +233,7 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
               <div className="mb-6 mx-auto w-[200px]">
                 <CircularProgressBar
                   title={'On Page Score'}
-                  percentage={100 - (errCount / 78) * 55}
+                  percentage={Math.round(100 - (errCount / 78) * 55)}
                 />
               </div>
               <div className="flex flex-row justify-evenly w-[50%] mx-auto mt-10">
@@ -249,9 +249,22 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
               <Image className="mx-auto" src={LoadingImg} alt="loading" />
             )}
             <div className="grid grid-cols-4">
-              {Object.keys(onPageResources).map((key) => (
-                <SimpleCard key={key} title={key} text={onPageResources[key]} />
-              ))}
+              {Object.keys(onPageResources).map((key) =>
+                onPageResources[key] === 0 ? (
+                  <Image
+                    key={key}
+                    className="mx-auto"
+                    src={LoadingImg}
+                    alt="loading"
+                  />
+                ) : (
+                  <SimpleCard
+                    key={key}
+                    title={key}
+                    text={onPageResources[key]}
+                  />
+                )
+              )}
             </div>
             {Object.keys(seoDetails).length === 0 ? (
               <Image className="mx-auto" src={LoadingImg} alt="loading" />
