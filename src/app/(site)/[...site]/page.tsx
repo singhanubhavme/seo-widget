@@ -8,8 +8,11 @@ import CircularProgressBar from '@/components/CircularProgressBar';
 import SimpleCard from '@/components/SimpleCard';
 import Card from '@/components/Card';
 export default function Home({ params }: { params: { site: Array<string> } }) {
+  console.log(params);
   const convertToHttpOrHttps = (url: string) => {
-    return url.startsWith('http://') || url.startsWith('https://')
+    return url.startsWith('http://') ||
+      url.startsWith('https://') ||
+      url.startsWith('https%3A')
       ? url
       : `https://${url}`;
   };
@@ -19,6 +22,7 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
   );
   const [SS, setSS] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
+  const [loadingCard, setLoadingCard] = useState<boolean>(true);
   const [id, setId] = useState<string>('');
   const [onPageResources, setOnPageResources]: any = useState({});
   const [seoDetails, setSeoDetails]: any = useState({});
@@ -175,6 +179,7 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
           (await progress1) === 'finished' &&
           (await progress2) === 'finished'
         ) {
+          setLoadingCard(false);
           clearInterval(intervalId);
         }
       }, 2000);
@@ -266,7 +271,7 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
                 )
               )}
             </div>
-            {Object.keys(seoDetails).length === 0 ? (
+            {loadingCard ? (
               <Image className="mx-auto" src={LoadingImg} alt="loading" />
             ) : (
               <div className="grid grid-cols-3">

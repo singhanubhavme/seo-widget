@@ -8,8 +8,12 @@ function Home() {
   const [URL, setURL] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = () => {
+    const modifiedURL =
+      URL.startsWith('http://') || URL.startsWith('https://')
+        ? URL.replace(/^(https?:\/\/)/i, '')
+        : URL;
     setLoading(true);
-    router.push(`/${URL}`);
+    router.push(`/${modifiedURL}`);
   };
   return (
     <div className="">
