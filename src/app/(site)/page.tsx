@@ -5,8 +5,8 @@ import LoadingSpinner from '../loading-spinner.svg';
 import { useRouter } from 'next/navigation';
 function Home() {
   const router = useRouter();
-  const [URL, setURL] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [URL, setURL] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = () => {
     setLoading(true);
     router.push(`/${URL}`);

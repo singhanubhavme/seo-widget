@@ -1,6 +1,13 @@
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { ImCross } from 'react-icons/im';
-function Card({ correct, title, description }) {
+
+interface CardProps {
+  correct: boolean;
+  title: string;
+  description: string;
+}
+
+function Card({ correct, title, description }: CardProps): JSX.Element {
   return (
     <div className="flex flex-row items-center border border-gray-400 mx-4 rounded-md p-2 px-4 my-4">
       <div>

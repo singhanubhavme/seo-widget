@@ -1,7 +1,15 @@
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-function CircularProgressBar({ percentage, title }) {
+interface CircularProgressBarProps {
+  percentage: number;
+  title: string;
+}
+
+function CircularProgressBar({
+  percentage,
+  title,
+}: CircularProgressBarProps): JSX.Element {
   return (
     <div className="flex flex-col justify-center items-center mx-4">
       <CircularProgressbar

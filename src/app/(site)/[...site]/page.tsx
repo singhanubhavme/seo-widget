@@ -14,13 +14,15 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
       : `https://${url}`;
   };
 
-  const [URL] = useState(convertToHttpOrHttps(params['site'].join('/')));
-  const [SS, setSS] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [id, setId] = useState('');
+  const [URL] = useState<string>(
+    convertToHttpOrHttps(params['site'].join('/'))
+  );
+  const [SS, setSS] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [id, setId] = useState<string>('');
   const [onPageResources, setOnPageResources]: any = useState({});
   const [seoDetails, setSeoDetails]: any = useState({});
-  const [errCount, setErrCount] = useState(0);
+  const [errCount, setErrCount] = useState<number>(0);
 
   async function getId() {
     const post_array: any = [];
