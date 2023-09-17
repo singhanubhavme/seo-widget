@@ -1,5 +1,9 @@
 import axios from 'axios';
-export async function getId(setId: (id: string | null) => void) {
+import { SetStateAction } from 'react';
+export async function getId(setId: {
+  (value: SetStateAction<string>): void;
+  (arg0: any): void;
+}) {
   const post_array: any = [];
   post_array.push({
     target: URL,
@@ -20,9 +24,12 @@ export async function getId(setId: (id: string | null) => void) {
 }
 
 export async function getPageData(
-  setErrCount: (errCount: number) => void,
+  setErrCount: {
+    (value: SetStateAction<number>): void;
+    (arg0: { (errCount: any): any; (errCount: any): any }): void;
+  },
   errCount: number,
-  setSeoDetails: (details: any) => void,
+  setSeoDetails: (arg0: any) => void,
   seoDetails: any
 ) {
   const id = localStorage.getItem('id');
@@ -48,11 +55,11 @@ export async function getPageData(
     (item: any) => {
       if (item.broken_links) {
         countBrokenLinks++;
-        setErrCount((errCount) => errCount + 1);
+        setErrCount((errCount: number) => errCount + 1);
       }
       if (item.broken_resources) {
         countBrokenResources++;
-        setErrCount((errCount) => errCount + 1);
+        setErrCount((errCount: number) => errCount + 1);
       }
       if (item.duplicate_content) {
         countDuplicateContent++;
@@ -78,7 +85,7 @@ export async function getPageData(
 
 export async function getResources(
   onPageResources: any,
-  setOnPageResources: (resources: any) => void
+  setOnPageResources: (arg0: any) => void
 ) {
   const id = localStorage.getItem('id');
   const post_array = [];
@@ -128,7 +135,10 @@ export async function getResources(
   return response?.data?.['tasks']?.[0]?.['result']?.[0]?.['crawl_progress'];
 }
 
-export async function getScreenshot(setSS: (image: string | null) => void) {
+export async function getScreenshot(setSS: {
+  (value: SetStateAction<string>): void;
+  (arg0: any): void;
+}) {
   const post_array = [];
   post_array.push({
     url: URL,
