@@ -8,7 +8,6 @@ import CircularProgressBar from '@/components/CircularProgressBar';
 import SimpleCard from '@/components/SimpleCard';
 import Card from '@/components/Card';
 export default function Home({ params }: { params: { site: Array<string> } }) {
-  console.log(params);
   const convertToHttpOrHttps = (url: string) => {
     return url.startsWith('http://') ||
       url.startsWith('https://') ||
