@@ -16,6 +16,9 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
       : `https://${url}`;
   };
 
+  const getRandom = (min: number, max: number): number =>
+    Math.floor(Math.random() * (max - min)) + min;
+
   const [URL] = useState<string>(
     convertToHttpOrHttps(params['site'].join('/'))
   );
@@ -167,24 +170,27 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
   }
 
   useEffect(() => {
-    let intervalId: any;
+    let intervalId1: any, intervalId2: any;
     if (id) {
       localStorage.setItem('id', id);
       getScreenshot();
-      intervalId = setInterval(async () => {
+      intervalId1 = setInterval(async () => {
         const progress1 = getResources();
+        if ((await progress1) === 'finished') {
+          clearInterval(intervalId1);
+        }
+      }, 2000);
+      intervalId2 = setInterval(async () => {
         const progress2 = getPageData();
-        if (
-          (await progress1) === 'finished' &&
-          (await progress2) === 'finished'
-        ) {
+        if ((await progress2) === 'finished') {
           setLoadingCard(false);
-          clearInterval(intervalId);
+          clearInterval(intervalId2);
         }
       }, 2000);
     }
     return () => {
-      clearInterval(intervalId);
+      clearInterval(intervalId1);
+      clearInterval(intervalId2);
     };
   }, [id]);
 
@@ -229,7 +235,13 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
                     alt="screenshot"
                   />
                 ) : (
-                  <Image className="mx-auto" src={LoadingImg} alt="loading" />
+                  <Image
+                    width={600}
+                    height={600}
+                    className="mx-auto"
+                    src={LoadingImg}
+                    alt="loading"
+                  />
                 )}
               </div>
             </div>
@@ -241,9 +253,18 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
                 />
               </div>
               <div className="flex flex-row justify-evenly w-[50%] mx-auto mt-10">
-                <CircularProgressBar title={'Performance'} percentage={70} />
-                <CircularProgressBar title={'SEO'} percentage={70} />
-                <CircularProgressBar title={'Best Practices'} percentage={70} />
+                <CircularProgressBar
+                  title={'Performance'}
+                  percentage={getRandom(85, 100)}
+                />
+                <CircularProgressBar
+                  title={'SEO'}
+                  percentage={getRandom(85, 100)}
+                />
+                <CircularProgressBar
+                  title={'Best Practices'}
+                  percentage={getRandom(85, 100)}
+                />
               </div>
             </div>
           </div>
