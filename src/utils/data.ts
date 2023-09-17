@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { SetStateAction } from 'react';
-export async function getId(setId: {
-  (value: SetStateAction<string>): void;
-  (arg0: any): void;
-}) {
+export async function getId(setId: any, URL: any) {
   const post_array: any = [];
   post_array.push({
     target: URL,
@@ -24,12 +21,9 @@ export async function getId(setId: {
 }
 
 export async function getPageData(
-  setErrCount: {
-    (value: SetStateAction<number>): void;
-    (arg0: { (errCount: any): any; (errCount: any): any }): void;
-  },
+  setErrCount: any,
   errCount: number,
-  setSeoDetails: (arg0: any) => void,
+  setSeoDetails: any,
   seoDetails: any
 ) {
   const id = localStorage.getItem('id');
@@ -85,7 +79,7 @@ export async function getPageData(
 
 export async function getResources(
   onPageResources: any,
-  setOnPageResources: (arg0: any) => void
+  setOnPageResources: any
 ) {
   const id = localStorage.getItem('id');
   const post_array = [];
@@ -135,10 +129,13 @@ export async function getResources(
   return response?.data?.['tasks']?.[0]?.['result']?.[0]?.['crawl_progress'];
 }
 
-export async function getScreenshot(setSS: {
-  (value: SetStateAction<string>): void;
-  (arg0: any): void;
-}) {
+export async function getScreenshot(
+  setSS: {
+    (value: SetStateAction<string>): void;
+    (arg0: any): void;
+  },
+  URL: string
+) {
   const post_array = [];
   post_array.push({
     url: URL,
@@ -153,6 +150,7 @@ export async function getScreenshot(setSS: {
       },
     }
   );
+  console.log(response);
   setSS(response?.data?.tasks?.[0]?.result?.[0]?.items?.[0]?.image);
 }
 

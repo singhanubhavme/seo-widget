@@ -32,7 +32,7 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
     let intervalId1: any, intervalId2: any;
     if (id) {
       localStorage.setItem('id', id);
-      getScreenshot(setSS);
+      getScreenshot(setSS, URL);
       intervalId1 = setInterval(async () => {
         const progress1 = getResources(onPageResources, setOnPageResources);
         if ((await progress1) === 'finished') {
@@ -60,7 +60,7 @@ export default function Home({ params }: { params: { site: Array<string> } }) {
 
   useEffect(() => {
     if (URL) {
-      getId(setId);
+      getId(setId, URL);
       setLoading(false);
     }
   }, [URL]);
